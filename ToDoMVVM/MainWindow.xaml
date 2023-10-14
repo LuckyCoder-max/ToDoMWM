@@ -15,12 +15,12 @@
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding Tasks}"/>
+        <ListView ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedItem}"/>
         <TextBox Grid.Row="1" Text="{Binding Description}"/>
         <UniformGrid Grid.Row="2" Rows="1">
             <Button Content="Add" Command="{Binding AddCommand}"/>
-            <Button Content="Update"/>
-            <Button Content="Delete"/>
+            <Button Content="Update" Command="{Binding UpdateCommand}"/>
+            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
         </UniformGrid>
     </Grid>
 </Window>

@@ -25,24 +25,29 @@ namespace ToDoMVVM
             }
         }
 
-        //public void UpdateTask(TaskItem)
-        //{
-        //    Task existingTask = tasks.FirstOrDefault(t => t.Id == taskId);
-        //    if (existingTask != null)
-        //    {
-        //        existingTask.Title = updatedTask.Title;
-        //        existingTask.Status = updatedTask.Status;
-        //    }
-        //}
+        public void Update(TaskItem task)
+        {
+            using (var context = new Context())
+            {
+                var existingTask = context.Tasks.Find(task?.Id);
+                if (existingTask is null) return;
+                existingTask.Status = !existingTask.Status;
+                context.SaveChanges();
+            }
+        }
 
-        //public bool DeleteTask(TaskItem)
-        //{
-        //    Task taskToRemove = tasks.FirstOrDefault(t => t.Id == taskId);
-        //    if (taskToRemove != null)
-        //    {
-        //        tasks.Remove(taskToRemove);
-        //    }
-        //}
+
+        public void Delete(TaskItem task)
+        {
+            using (var context = new Context())
+            {
+                if (task != null)
+                {
+                    context.Tasks.Remove(task);
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }
 
