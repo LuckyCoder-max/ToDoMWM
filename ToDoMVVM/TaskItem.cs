@@ -12,7 +12,5 @@ namespace ToDoMVVM
         public string Description { get; set; }
         public bool Status { get; set; }
 
-        public override string ToString() => $"{Id} {Description}\t {Status}";//Temporary, need to remove
-
     }
 }

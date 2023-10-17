@@ -15,7 +15,10 @@
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedItem}"/>
+        <ListView ItemsSource="{Binding Tasks}" 
+                  SelectedItem="{Binding SelectedItem}"
+                  ItemTemplate="{StaticResource TaskItem.Template}"
+                  Style="{StaticResource ListView.Style}"/>
         <TextBox Grid.Row="1" Text="{Binding Description}"/>
         <UniformGrid Grid.Row="2" Rows="1">
             <Button Content="Add" Command="{Binding AddCommand}"/>
