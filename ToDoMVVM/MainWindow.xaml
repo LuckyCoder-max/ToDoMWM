@@ -21,6 +21,8 @@
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
             <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+            <Button Content="Clear" Command="{Binding ClearCommand}"/>
+            <Button Content="Change" Command="{Binding ChangeCommand}"/>
         </UniformGrid>
     </Grid>
 </Window>

@@ -48,6 +48,23 @@ namespace ToDoMVVM
                 }
             }
         }
+        public void ClearAll()
+        {
+            using (var context = new Context())
+            {
+                context.Database.EnsureDeleted();
+            }
+        }
+        public void ChangeDescription(TaskItem task, string description)
+        {
+            using (var context = new Context())
+            {
+                var existingTask = context.Tasks.Find(task?.Id);
+                if (existingTask is null) return;
+                existingTask.Description = description; 
+                context.SaveChanges();
+            }
+        }
     }
 }
 
