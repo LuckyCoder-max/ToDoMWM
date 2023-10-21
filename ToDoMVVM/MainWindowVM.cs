@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -70,7 +71,7 @@ namespace ToDoMVVM
         private void Add(object o)
         {
             if (string.IsNullOrWhiteSpace(Description)) return;
-            TaskItem item = new() { Description = this.Description };
+            TaskItem item = new() { Description = RemoveExtraSpaces(this.Description) };
             _taskManager.Create(item);
             Tasks = new ObservableCollection<TaskItem>(_taskManager.GetTasks());
             Description = string.Empty;
@@ -94,10 +95,14 @@ namespace ToDoMVVM
         private void Change(object o)
         {
             if (string.IsNullOrWhiteSpace(Description)) return;
-            _taskManager.ChangeDescription(_selectedItem, Description);
+            _taskManager.ChangeDescription(_selectedItem, RemoveExtraSpaces(Description));
             Description = string.Empty;
             Tasks = new ObservableCollection<TaskItem>(_taskManager.GetTasks());
         }
 
+        private string RemoveExtraSpaces(string input)
+        {
+            return Regex.Replace(input, @"\s+", " ");
+        }
     }
 }
