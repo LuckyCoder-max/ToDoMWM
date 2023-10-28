@@ -6,19 +6,31 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.05*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.05*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding Id}"/>
-            <TextBlock Grid.Column="1" Text="{Binding Description}"/>
-            <CheckBox Grid.Column="2" IsChecked="{Binding Status}"/>
+            <TextBlock Text="{Binding Id}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat={}{0:dd.MM.yy}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Image x:Name="StatusImage" Grid.Column="3" Source="Resources/gtk-red.png" Stretch="None"/>
         </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="True">
+                <Setter TargetName="StatusImage" Property="Source" Value="/Resources/gtk-media-record_green.png"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <Style x:Key="ListView.Style" TargetType="{x:Type ListView}">
         <Style.Setters>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         </Style.Setters>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="White"/>
     </Style>
         
 </ResourceDictionary>

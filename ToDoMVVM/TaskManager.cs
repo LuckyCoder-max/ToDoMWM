@@ -10,8 +10,15 @@ namespace ToDoMVVM
     {
         public void Create(TaskItem task)
         {
-            using(var context = new Context())
+            using (var context = new Context())
             {
+                int newId = 1;
+
+                if (context.Tasks.Any())
+                {
+                    newId = context.Tasks.Max(t => t.Id) + 1;
+                }
+                task.Id = newId;
                 context.Tasks.Add(task);
                 context.SaveChanges();
             }
@@ -46,6 +53,26 @@ namespace ToDoMVVM
                     context.Tasks.Remove(task);
                     context.SaveChanges();
                 }
+            }
+
+            UpdateIdsForRemainingTasks();
+        }
+        private void UpdateIdsForRemainingTasks()
+        {
+            using (var context = new Context())
+            {
+                var tasks = context.Tasks.OrderBy(t => t.Id).ToList();
+
+                context.Tasks.RemoveRange(tasks);
+                context.SaveChanges();
+
+                for (int i = 0; i < tasks.Count; i++)
+                {
+                    tasks[i].Id = i + 1;
+                }
+
+                context.Tasks.AddRange(tasks);
+                context.SaveChanges();
             }
         }
         public void ClearAll()

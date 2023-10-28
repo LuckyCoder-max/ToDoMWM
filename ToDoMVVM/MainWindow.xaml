@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoMVVM"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="450" MinWidth="450" MinHeight="450" Closed="MainWindow_OnClosed" Loaded="MainWindow_OnLoaded">
     <Window.DataContext>
         <local:MainWindowVM/>
     </Window.DataContext>
@@ -18,10 +19,30 @@
         <ListView ItemsSource="{Binding Tasks}" 
                   SelectedItem="{Binding SelectedItem}"
                   ItemTemplate="{StaticResource TaskItem.Template}"
-                  Style="{StaticResource ListView.Style}"/>
-        <TextBox Grid.Row="1" Text="{Binding Description}"/>
+                  Style="{StaticResource ListView.Style}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ClearSelectionCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListView.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
+            </ListView.InputBindings>
+        </ListView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Box" Text="{Binding Description}" VerticalContentAlignment="Center">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding EnterCommand}" CommandParameter="{Binding ElementName=Box, Path=Text}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Grid.Column="1" Content="Add" Width="50" Command="{Binding AddCommand}"/>
+        </Grid>
+            
         <UniformGrid Grid.Row="2" Rows="1">
-            <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
             <Button Content="Delete" Command="{Binding DeleteCommand}"/>
             <Button Content="Clear" Command="{Binding ClearCommand}"/>

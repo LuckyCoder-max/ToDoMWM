@@ -49,6 +49,8 @@ namespace ToDoMVVM
         public ICommand UpdateCommand => _updateCommand;
         public ICommand ClearCommand => _clearCommand;
         public ICommand ChangeCommand => _changeCommand;
+        public ICommand EnterCommand => _enterCommand;
+        public ICommand ClearSelectionCommand => _clearSelectionCommand;
         public MainWindowVM() 
         {
             _addCommand = new(Add);
@@ -56,6 +58,8 @@ namespace ToDoMVVM
             _updateCommand = new(Update);
             _clearCommand = new(ClearAll);
             _changeCommand = new (Change);
+            _enterCommand = new(Enter);
+            _clearSelectionCommand = new(ClearSelection);
             _taskManager = new TaskManager();
             Tasks = new ObservableCollection<TaskItem>(_taskManager.GetTasks());
         }
@@ -64,6 +68,8 @@ namespace ToDoMVVM
         private RelayCommand _updateCommand;
         private RelayCommand _clearCommand;
         private RelayCommand _changeCommand;
+        private RelayCommand _enterCommand;
+        private RelayCommand _clearSelectionCommand;
         private ObservableCollection<TaskItem> _tasks;
         private TaskManager _taskManager;
         private string _description;
@@ -71,15 +77,26 @@ namespace ToDoMVVM
         private void Add(object o)
         {
             if (string.IsNullOrWhiteSpace(Description)) return;
-            TaskItem item = new() { Description = RemoveExtraSpaces(this.Description) };
+            TaskItem item = new() { Description = RemoveExtraSpaces(this.Description), Date = DateTime.Today};
             _taskManager.Create(item);
             Tasks = new ObservableCollection<TaskItem>(_taskManager.GetTasks());
             Description = string.Empty;
         }
         private void Delete(object o)
         {
-            _taskManager.Delete(SelectedItem);
+            if(SelectedItem is null) return;
+            int index = SelectedItem.Id - 1;
+                _taskManager.Delete(SelectedItem);
             Tasks = new ObservableCollection<TaskItem>(_taskManager.GetTasks());
+            if (index == Tasks.Count)
+            {
+                if(Tasks.Count > 0) 
+                    SelectedItem = Tasks[0];
+            }
+            else if (index >= 0 && index < Tasks.Count)
+            {
+                SelectedItem = Tasks[index];
+            }
         }
 
         private void Update(object o)
@@ -103,6 +120,26 @@ namespace ToDoMVVM
         private string RemoveExtraSpaces(string input)
         {
             return Regex.Replace(input, @"\s+", " ");
+        }
+
+        private void Enter(object o)
+        {
+            if (o is null) return;
+            if (SelectedItem != null)
+            {
+                Description = o as string;
+                Change(o);
+            }
+            else
+            {
+                Description = o as string;
+                Add(o);
+            }
+        }
+
+        private void ClearSelection(object o)
+        {
+            SelectedItem = null;
         }
     }
 }
