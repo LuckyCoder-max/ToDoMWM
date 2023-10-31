@@ -5,24 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoMVVM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="400">
     <Window.DataContext>
         <local:MainWindowVM/>
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.1*"/>
-        </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedItem}"/>
-        <TextBox Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap"/>
-        <UniformGrid Grid.Row="2" Rows="1">
-            <Button Content="Add" Command="{Binding AddCommand}"/>
-            <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
-            <Button Content="Clear" Command="{Binding ClearCommand}"/>
-            <Button Content="Change" Command="{Binding ChangeCommand}"/>
-        </UniformGrid>
+    <Grid Background="Transparent">
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ListView Grid.Row="0" ItemsSource="{Binding Tasks}" 
+                      SelectedItem="{Binding SelectedItem}" 
+                      ItemTemplate="{StaticResource TaskItem.Template}" 
+                      Style="{StaticResource ListView.Style}"/>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBox Text="{Binding Description}" Background="#ECF0F1" BorderBrush="#BDC3C7" VerticalAlignment="Center" Margin="0,0,10,0" Width="300"/>
+                <Button Content="Add" Command="{Binding AddCommand}" Background="#2ECC71" Foreground="White" HorizontalAlignment="Right"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button Content="Update" Command="{Binding UpdateCommand}" Style="{StaticResource UpdateButton.Style}" Background="#3498DB"/>
+                <Button Content="Delete" Command="{Binding DeleteCommand}" Background="#E74C3C" Foreground="White" Margin="10"/>
+                <Button Content="Clear" Command="{Binding ClearCommand}" Background="#F39C12" Foreground="White" Margin="10"/>
+                <Button Content="Change" Command="{Binding ChangeCommand}" Background="#9B59B6" Foreground="White" Margin="10"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
