@@ -7,11 +7,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.05*"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.05*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Id}"/>
             <TextBlock Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap"/>
-            <CheckBox Grid.Column="2" IsChecked="{Binding Status}"/>
+            <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat={}{0:dd.MM.yy}}"/>
+            <CheckBox Grid.Column="3" IsChecked="{Binding Status}"/>
         </Grid>
     </DataTemplate>
 
@@ -23,13 +25,14 @@
             <Setter Property="BorderBrush" Value="#BDC3C7"/>
         </Style.Setters>
     </Style>
-    <Style x:Key="TextBox.Style" TargetType="{x:Type TextBlock}" >
+    <Style x:Key="TextBox.Style" TargetType="{x:Type TextBox}" >
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Background" Value="#ECF0F1"/>
             <Setter Property="Foreground" Value="#34495E"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
-            <Setter Property="Width" Value="300"/>
+            <Setter Property="Width" Value="352"/>
+            <Setter Property="Height" Value="20"/>
         </Style.Setters>
     </Style>
     <Style x:Key="UpdateButton.Style" TargetType="Button">

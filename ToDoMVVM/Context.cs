@@ -11,6 +11,7 @@ namespace ToDoMVVM
     {
         public DbSet<TaskItem> Tasks { get; set; }
         public Context() => Database.EnsureCreated();
+        //public Context() => Database.EnsureDeleted();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=tasks.db");
