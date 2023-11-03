@@ -16,7 +16,6 @@ namespace ToDoMVVM
                 context.SaveChanges();
             }
         }
-
         public List<TaskItem> GetTasks()
         {
             using( var context = new Context())
@@ -24,7 +23,6 @@ namespace ToDoMVVM
                 return context.Tasks.ToList();
             }
         }
-
         public void Update(TaskItem task)
         {
             using (var context = new Context())
@@ -35,8 +33,6 @@ namespace ToDoMVVM
                 context.SaveChanges();
             }
         }
-
-
         public void Delete(TaskItem task)
         {
             using (var context = new Context())

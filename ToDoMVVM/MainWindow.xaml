@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoMVVM"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="To-Do App" Height="600" Width="450">
     <Window.DataContext>
@@ -20,10 +21,18 @@
             <ListView Grid.Row="0" ItemsSource="{Binding Tasks}" 
                       SelectedItem="{Binding SelectedItem}" 
                       ItemTemplate="{StaticResource TaskItem.Template}" 
-                      Style="{StaticResource ListView.Style}"/>
+                      Style="{StaticResource ListView.Style}">
+                <ListView.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
+                </ListView.InputBindings>
+            </ListView>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <TextBox Text="{Binding Description}" Style="{StaticResource TextBox.Style}"/>
+                <TextBox x:Name="Box" Text="{Binding Description}" Style="{StaticResource TextBox.Style}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding EnterCommand}" CommandParameter="{Binding ElementName=Box, Path=Text}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button Content="Add" Command="{Binding AddCommand}" Style="{StaticResource AddButton.Style}"/>
             </StackPanel>
 
