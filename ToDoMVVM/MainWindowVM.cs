@@ -71,7 +71,7 @@ namespace ToDoMVVM
         private void Add(object o)
         {
             if (string.IsNullOrWhiteSpace(Description)) return;
-            TaskItem item = new() { Description = RemoveExtraSpaces(this.Description) };
+            TaskItem item = new() { Description = RemoveExtraSpaces(this.Description), Date = DateTime.Today};
             _taskManager.Create(item);
             Tasks = new ObservableCollection<TaskItem>(_taskManager.GetTasks());
             Description = string.Empty;

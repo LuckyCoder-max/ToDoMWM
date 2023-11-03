@@ -28,7 +28,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                <Button Content="Update" Command="{Binding UpdateCommand}" Style="{StaticResource UpdateButton.Style}" Background="#3498DB"/>
+                <Button Content="Update" Command="{Binding UpdateCommand}"  Background="#3498DB"/>
                 <Button Content="Delete" Command="{Binding DeleteCommand}" Background="#E74C3C" Foreground="White" Margin="10"/>
                 <Button Content="Clear" Command="{Binding ClearCommand}" Background="#F39C12" Foreground="White" Margin="10"/>
                 <Button Content="Change" Command="{Binding ChangeCommand}" Background="#9B59B6" Foreground="White" Margin="10"/>

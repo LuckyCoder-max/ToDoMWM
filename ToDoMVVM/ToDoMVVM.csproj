@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="cross.png" />
+    <None Remove="Tick.png" />
     <None Remove="Без назви.jpg" />
   </ItemGroup>
 
@@ -16,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="cross.png" />
+    <Resource Include="Tick.png" />
     <Resource Include="Без назви.jpg" />
   </ItemGroup>
 
