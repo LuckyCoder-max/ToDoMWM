@@ -12,10 +12,15 @@
             <TextBlock Text="{Binding Id}"/>
             <TextBlock Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap"/>
             <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat={}{0:dd.MM.yy}}"/>
-            <CheckBox Grid.Column="3" IsChecked="{Binding Status}"/>
+            <Image x:Name="StatusImage" Grid.Column="3" Source="/cross.png" Stretch="Uniform"/>
         </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="True">
+                <Setter TargetName="StatusImage" Property="Source" Value="/tick.png"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
-
+    
     <Style x:Key="ListView.Style" TargetType="{x:Type ListView}" >
         <Style.Setters>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
