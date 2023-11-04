@@ -24,5 +24,18 @@ namespace ToDoMVVM
         {
             InitializeComponent();
         }
+
+        private void MainWindow_OnClosed(object? sender, EventArgs e)
+        {
+            AppSettings.Default.WindowTop = Top;
+            AppSettings.Default.WindowLeft = Left;
+            AppSettings.Default.Save();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Top = AppSettings.Default.WindowTop;
+            Left = AppSettings.Default.WindowLeft;
+        }
     }
 }

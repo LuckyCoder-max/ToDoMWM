@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoMVVM"
         mc:Ignorable="d"
-        Title="To-Do App" Height="600" Width="450">
+        Title="To-Do App" Height="600" Width="450" Closed="MainWindow_OnClosed" Loaded="MainWindow_OnLoaded">
     <Window.DataContext>
         <local:MainWindowVM/>
     </Window.DataContext>
